@@ -1,0 +1,6 @@
+source lmod-6.1
+ml kat
+
+kat comp -H 10000000000 -o 2015PP '1272_LIB12785_LDI10669_NoIndex_L001_R?.fastq' pink_pigeon.prep.scafSeq.fasta
+
+#Sometimes program outputs odd axis if so adjust using kat plot spectra-cn <matrix_file> -x 100

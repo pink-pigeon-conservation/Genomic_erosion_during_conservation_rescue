@@ -1,0 +1,702 @@
+VORTEX 10.3.3.0 -- simulation of population dynamics
+
+Project: Final_vortex_simulations
+
+Scenario: Scenario_2
+
+02/05/2019
+
+  6 populations simulated for 100 years for 1000 iterations
+  Last population omitted from metapopulation tallies.
+
+
+Scenario Settings Notes: I want to look at the impact of supplmentation from the captive if they have the same alleles and if they have different.
+
+Assume starting from 2010 enter populaiton estimates from then.
+
+Sequence of events in each time cycle:
+  EV
+  Breed
+  Mortality
+  Disperse
+  Harvest
+  Supplement
+  Breed
+  Age
+  rCalc
+  Ktruncation
+  UpdateVars
+  PSUpdate
+  Census
+
+Extinction defined as no males or no females.
+
+Species Description Notes: See page 27 of manual. For now use the standard however it woudl be useful to work this out for PP and I think we have the data. This would be a good thing to ask Cock for help with
+
+The 50 refers to the fact that 50 percent of decline is due to lethal equivalents - how much inbreeding depression due to teh lethal equivalents as opposed to other mechanisms
+
+*** I believe we shoudl be able to calculate lethal equivalents for the pink pigeon with a bit more information, we need to plot inbreeding coefficient against traits for survival - fecundity, first year survival etc.
+
+
+
+If EV( variation due to environemtnal stochasticity) correlation is  is 1 it means that teh ev affecting reporudtcion adn survival are synchronised so that a good year for reporodcution is a good year for survival. 
+
+Pink pigeons breed all year and stay put therefore these things are likely to be highly correlated
+
+Inbreeding depression with a genetic load consisting of 
+  15.128 total lethal equivalents per individual, of which
+  50% are due to recessive lethals,
+  and the remainder are lethal equivalents not subjected to removal by selection.
+
+State Variables Notes: This allows you to make more complex models, this is slightly beyond me at the moment and I am not sure if they will be required.
+
+Populations:
+
+  PW
+  Population state variables
+  PS1: PSvar1    Initialization: = IS1      Transition: = IMEAN1
+
+  PL
+  Population state variables
+  PS1: PSvar1    Initialization: = IS1      Transition: = IMEAN1
+
+  BO
+  Population state variables
+  PS1: PSvar1    Initialization: = IS1      Transition: = IMEAN1
+
+  IAA
+  Population state variables
+  PS1: PSvar1    Initialization: = IS1      Transition: = IMEAN1
+
+  CO
+  Population state variables
+  PS1: PSvar1    Initialization: = IS1      Transition: = IMEAN1
+
+  Captive
+  Population state variables
+  PS1: PSvar1    Initialization: = IS1      Transition: = IMEAN1
+
+Individual state variables
+  IS1: I    Initialization: = I    Birth function: = I    Transition: = I
+
+
+Correlation of EV among populations = 0.75
+
+Dispersal Notes: I used the data from LC thesis to look at what birds and when were movI have tried setting youingest at 0 - they cant disperse at birth but from fledge
+
+
+I used the data from LC thesis to look at what birds and when were moving into populaitons this is a very rough estimate
+
+I got the data looking at the graphs in LC theseis woudl be more acurate with the data and even then it is not currentng into populaitons this is a very rough estimate
+
+Apart from to adn from IAA it seems dispersing ( from what I have read) does not pose more or less threat than normal living so I have set the survival at 100%
+
+NB dtaa for lower BRG likely to understimate actual dispersal as  limited data at time of her thesis as it had only been established recently
+
+Both sexes disperse, from age 0 to age 15
+Survival during dispersal: 100
+
+Dispersal rates (as percents), from source (row) to destination (column):
+                PW            PL            BO            IAA           CO            Captive       
+  PW                              4.17          2.22          0             18.18         0             
+  PL               8.7                          0             0             3.64          0             
+  BO               4.35          0                            0             5.45          0             
+  IAA              0             0             2.22                         0             0             
+  CO               26.09         3.33          11.11         0                            0             
+  Captive          0             0             0             0             0                            
+
+Reproductive System:
+
+Reproductive System Notes: I will use a lot of info from Mos thesis here
+
+long term monogamy measn they keep their breedng partner unless death
+
+
+Mo conlcuded sex ratio in IAA equal at birth but generally unequal thereafter
+
+Need ot chek max broods and max progeny
+
+Have represnted adult sex bias as bias at birth
+
+I have used a number of sources here overall I think it seems likely from CJ pink pigeon chapter and subsequent work that they can become reproductively active earlier than a year adn females burn out.
+
+Harder to ascertian was brood number - it seems according to CJ (Larger land birds of Mauritius) that they are capable of laying a hug number of eggs ( about 30 has been recorded)
+
+6 OCT
+
+After meeting Cock pointed out that using highest ever recorded was unlikely to give a representative distrubution so reduce number of broods to try and recereate real distribution
+
+  Monogamy, with pairs maintained across years
+  Females breed from age 1 to age 5
+  Males breed from age 1 to age 15
+  Maximum age of survival: 15
+  Sex ratio (percent males) at birth: 54
+
+Correlation of EV between reproduction and survival = 0.75
+
+EV sampled from binomial distributions.
+
+Reproductive Rates Notes: Base off of Mikes PVA
+
+Captive jersey alone raised 39 birds to fledging in one year
+
+
+0 brood = emty clutch ie laid egg but didnt hatch or died quickly after hatching
+
+Mortality Notes: use data from MOs thesis he in turn got in from Nancy
+
+NB In order to model impact of inbrreding etc. I have said that young = egg therefore mortality includes eggs not hatchign ie infertile eggs. This is one of the reasons the number is so high, it is including infertile eggs then mortality.
+
+Mike PVA adult mortality 10-15 sd 2%
+
+Replaced mortality rates with mean and SD worked out form Nancy thesis (2001-2005)
+
+THe issue is that if I put the reproductiuve age at 0 then i can only specify mortality after age 0 as opposed ot 0-1 and after 1
+
+9_OCT
+Redce mortality because currently wanted to take in infertility but that is how inbreeding depression is manifested so essentially accounting for it twice so needed to reduce 1st year mortality from 95 -
+
+Catastrophe Notes: Cyclones cause 50% mortality when they occur (CJ larger land birds)
+
+according to PVA by Mike sever cyclones happen about once every 15 years  - because I am modelign 50 years - 6%
+
+Mate Monopolization Notes: got this form Mikes - still not clear on this paramter
+
+Initial Population Size Notes: Used LC thesis and number for this time point
+
+Carrying Capacity Notes: I am unsure of these but wanted to set it high enough to not be too much of a barrier.
+
+Reading CJ(larger landbirds of Mauritius)  he said that the carryign capacity of PW was about 75 but with supplementary feeding coudl be 100-1200. Since all popn fed i have increased to upper limit apart from IAA which I think has other constriants
+
+Harvest Notes: Birds were removed from the wild to supplement captive breeding.
+
+11 were removed from 1976 - 1981 
+
+12 were removed in 1989
+
+Supplementation Notes: For PL used 71 out of 107 becasue supplemtation figures start before model so adjusted accordinlgy - figures from manuscript
+
+what i want is a function that says :
+
+intriduce x individulas with x intervals fir x years then introduce x every 2 years
+
+According to Nancy PWhas never been supplemetned
+
+I tested whether it made much difference to supplemnt all over or all under 1 yr it didnt. I know preferntially they release young individuals but I know hisotirclly older ave been released so setled on a few older
+
+Worked out % surviving from LC table in manuscript
+
+
+Population specific rates for PW
+
+  Percent of adult females breeding each year: 80
+    with EV(SD): 10
+  Percent of adult males in the pool of breeders: 80
+  Distribution of number of broods per year:
+    9.52 percent 0 broods
+    30 percent 1 broods
+    50.96 percent 2 broods
+    7.14 percent 3 broods
+    2.38 percent 4 broods
+    0 percent 5 broods
+    0 percent 6 broods
+    0 percent 7 broods
+    0 percent 8 broods
+    0 percent 9 broods
+    0 percent 10 broods
+    0 percent 11 broods
+    0 percent 12 broods
+  Brood size distribution:
+    88 percent size 1
+    12 percent size 2
+
+  Female annual mortality rates (as percents):
+    Age 0 to 1:    56.4 with EV(SD): 5
+    After age 1:    14.45 with EV(SD): 7.25
+
+  Male annual mortality rates (as percents):
+    Age 0 to 1:    56.4 with EV(SD): 5
+    After age 1:    14.45 with EV(SD): 7.25
+
+  Catastrophe 1: cyclones
+    Local impact
+    Frequency (%): 6.7
+    Reproduction reduced by severity multiplier: 1
+    Survival reduced by severity multiplier: 0.5
+
+  Initial population size:
+        Age       0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15   Total
+  Females       0     6     5     4     3     3     2     2     2     1     1     1     1     0     1     0    32
+   Males         0     7     6     4     4     4     2     3     1     2     1     1     1     1     0     1    38
+
+  Carrying capacity: 200
+    with EV(SD):  10
+
+
+  Supplementation from year 5 through year 95 by increments of 5
+        Age      0       1 
+    Females      4       1 
+      Males      4       1 
+
+
+Population specific rates for PL
+
+  Percent of adult females breeding each year: 80
+    with EV(SD): 10
+  Percent of adult males in the pool of breeders: 80
+  Distribution of number of broods per year:
+    9.52 percent 0 broods
+    30 percent 1 broods
+    50.96 percent 2 broods
+    7.14 percent 3 broods
+    2.38 percent 4 broods
+    0 percent 5 broods
+    0 percent 6 broods
+    0 percent 7 broods
+    0 percent 8 broods
+    0 percent 9 broods
+    0 percent 10 broods
+    0 percent 11 broods
+    0 percent 12 broods
+  Brood size distribution:
+    88 percent size 1
+    12 percent size 2
+
+  Female annual mortality rates (as percents):
+    Age 0 to 1:    56.4 with EV(SD): 5
+    After age 1:    11.65 with EV(SD): 6.27
+
+  Male annual mortality rates (as percents):
+    Age 0 to 1:    56.4 with EV(SD): 5
+    After age 1:    11.65 with EV(SD): 6.27
+
+  Catastrophe 1: cyclones
+    Local impact
+    Frequency (%): 6.7
+    Reproduction reduced by severity multiplier: 1
+    Survival reduced by severity multiplier: 0.5
+
+  Initial population size:
+        Age       0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15   Total
+  Females       0     9     8     7     5     5     3     4     2     2     2     2     1     1     1     1    53
+   Males         0    11     9     8     6     5     5     4     3     2     3     1     2     1     1     1    62
+
+  Carrying capacity: 200
+    with EV(SD):  10
+
+
+  Supplementation from year 6 through year 96 by increments of 5
+        Age      0       1 
+    Females      4       1 
+      Males      4       1 
+
+
+Population specific rates for BO
+
+  Percent of adult females breeding each year: 80
+    with EV(SD): 10
+  Percent of adult males in the pool of breeders: 80
+  Distribution of number of broods per year:
+    9.52 percent 0 broods
+    30 percent 1 broods
+    50.96 percent 2 broods
+    7.14 percent 3 broods
+    2.38 percent 4 broods
+    0 percent 5 broods
+    0 percent 6 broods
+    0 percent 7 broods
+    0 percent 8 broods
+    0 percent 9 broods
+    0 percent 10 broods
+    0 percent 11 broods
+    0 percent 12 broods
+  Brood size distribution:
+    88 percent size 1
+    12 percent size 2
+
+  Female annual mortality rates (as percents):
+    Age 0 to 1:    56.4 with EV(SD): 5
+    After age 1:    19.4 with EV(SD): 5.55
+
+  Male annual mortality rates (as percents):
+    Age 0 to 1:    56.4 with EV(SD): 5
+    After age 1:    19.4 with EV(SD): 5.55
+
+  Catastrophe 1: cyclones
+    Local impact
+    Frequency (%): 6.7
+    Reproduction reduced by severity multiplier: 1
+    Survival reduced by severity multiplier: 0.5
+
+  Initial population size:
+        Age       0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15   Total
+  Females       0     5     3     3     3     2     1     2     1     0     1     1     0     0     1     0    23
+   Males         0     5     5     3     3     2     2     2     1     1     1     0     1     0     1     0    27
+
+  Carrying capacity: 200
+    with EV(SD):  10
+
+
+  Supplementation from year 7 through year 97 by increments of 5
+        Age      0       1 
+    Females      4       1 
+      Males      4       1 
+
+
+Population specific rates for IAA
+
+  Percent of adult females breeding each year: 80
+    with EV(SD): 10
+  Percent of adult males in the pool of breeders: 80
+  Distribution of number of broods per year:
+    9.52 percent 0 broods
+    30 percent 1 broods
+    50.96 percent 2 broods
+    7.14 percent 3 broods
+    2.38 percent 4 broods
+    0 percent 5 broods
+    0 percent 6 broods
+    0 percent 7 broods
+    0 percent 8 broods
+    0 percent 9 broods
+    0 percent 10 broods
+    0 percent 11 broods
+    0 percent 12 broods
+  Brood size distribution:
+    88 percent size 1
+    12 percent size 2
+
+  Female annual mortality rates (as percents):
+    Age 0 to 1:    56.4 with EV(SD): 5
+    After age 1:    12.8 with EV(SD): 9.17
+
+  Male annual mortality rates (as percents):
+    Age 0 to 1:    56.4 with EV(SD): 5
+    After age 1:    12.8 with EV(SD): 9.17
+
+  Catastrophe 1: cyclones
+    Local impact
+    Frequency (%): 6.7
+    Reproduction reduced by severity multiplier: 1
+    Survival reduced by severity multiplier: 0.5
+
+  Initial population size:
+        Age       0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15   Total
+  Females       0     5     4     3     3     3     2     1     2     1     1     1     0     1     0     1    28
+   Males         0     6     5     4     3     3     2     2     2     1     1     1     1     0     1     0    32
+
+  Carrying capacity: 100
+    with EV(SD):  10
+
+
+  Supplementation from year 8 through year 98 by increments of 5
+        Age      0       1 
+    Females      4       1 
+      Males      4       1 
+
+
+Population specific rates for CO
+
+  Percent of adult females breeding each year: 80
+    with EV(SD): 10
+  Percent of adult males in the pool of breeders: 80
+  Distribution of number of broods per year:
+    9.52 percent 0 broods
+    30 percent 1 broods
+    50.96 percent 2 broods
+    7.14 percent 3 broods
+    2.38 percent 4 broods
+    0 percent 5 broods
+    0 percent 6 broods
+    0 percent 7 broods
+    0 percent 8 broods
+    0 percent 9 broods
+    0 percent 10 broods
+    0 percent 11 broods
+    0 percent 12 broods
+  Brood size distribution:
+    88 percent size 1
+    12 percent size 2
+
+  Female annual mortality rates (as percents):
+    Age 0 to 1:    56.4 with EV(SD): 5
+    After age 1:    15.6 with EV(SD): 4.8
+
+  Male annual mortality rates (as percents):
+    Age 0 to 1:    56.4 with EV(SD): 5
+    After age 1:    15.6 with EV(SD): 4.8
+
+  Catastrophe 1: cyclones
+    Local impact
+    Frequency (%): 6.7
+    Reproduction reduced by severity multiplier: 1
+    Survival reduced by severity multiplier: 0.5
+
+  Initial population size:
+        Age       0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15   Total
+  Females       0     4     4     3     2     2     2     1     1     1     1     0     1     0     1     0    23
+   Males         0     5     4     4     2     3     2     1     2     1     0     1     1     0     1     0    27
+
+  Carrying capacity: 200
+    with EV(SD):  10
+
+
+  Supplementation from year 9 through year 99 by increments of 5
+        Age      0       1 
+    Females      4       1 
+      Males      4       1 
+
+
+Population specific rates for Captive
+
+  Percent of adult females breeding each year: 80
+    with EV(SD): 10
+  Percent of adult males in the pool of breeders: 80
+  Distribution of number of broods per year:
+    36 percent 0 broods
+    20 percent 1 broods
+    10 percent 2 broods
+    10 percent 3 broods
+    5 percent 4 broods
+    5 percent 5 broods
+    14 percent 6 broods
+    0 percent 7 broods
+    0 percent 8 broods
+    0 percent 9 broods
+    0 percent 10 broods
+    0 percent 11 broods
+    0 percent 12 broods
+  Brood size distribution:
+    78 percent size 1
+    22 percent size 2
+
+  Female annual mortality rates (as percents):
+    Age 0 to 1:    34 with EV(SD): 5
+    After age 1:    10 with EV(SD): 6.12
+
+  Male annual mortality rates (as percents):
+    Age 0 to 1:    34 with EV(SD): 5
+    After age 1:    10 with EV(SD): 6.12
+
+  Catastrophe 1: cyclones
+    Global impact
+    Frequency (%): 6.7
+    Reproduction reduced by severity multiplier: 1
+    Survival reduced by severity multiplier: 1
+
+  Initial population size:
+        Age       0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15   Total
+  Females       0    14     8     5     4     2     1     1     0     1     0     0     0     0     0     0    36
+   Males         0    16    10     6     4     3     1     1     1     0     0     0     1     0     0     0    43
+
+  Carrying capacity: 200
+    with EV(SD):  10
+
+  Harvest from year 1 through year 99 by increments of 5
+        Age      0       1 
+    Females     20       5 
+      Males     20       5 
+
+Translocation via population 6
+  with % survival during harvest: 100
+  and % survival during supplementation: 89.87
+
+
+Genetics options:
+
+Genetics Notes: Mutation rate used by Harrison et al in another bird species - also using microsatellites
+another paper quoted microsat mutation rate at 10-2, 10-6 so thsi number is straight down the middle
+
+you-chun li et al 10-2, 110-6
+
+include only additional loci in summary stats means it will only include the stats for the 22 neutral loci not th edefault infinite allele locus
+
+  22 nuclear loci (and one mtDNA locus) simulated
+  Genetic summary statistics based only on loci after locus 1
+
+  First locus is default with infinite alleles model
+  Initial allele frequencies for other loci provided by C:\Users\ryanc\Documents\PinkPigeon\Vortex\CERVUS\All_wild_alleles_VORTEX_text.txt:
+    Population: PW
+      Locus 2: 0.0000 0.8846 0.0000 0.0000 0.1154 
+      Locus 3: 0.0000 0.0000 0.8289 0.1579 0.0132 
+      Locus 4: 0.0278 0.0694 0.9028 0.0000 
+      Locus 5: 0.3026 0.0395 0.5789 0.0789 
+      Locus 6: 0.0000 0.6500 0.1875 0.1250 0.0000 0.0375 
+      Locus 7: 0.0000 0.0000 0.8500 0.1500 
+      Locus 8: 0.0000 0.0000 0.0000 0.0000 0.1429 0.0143 0.3571 0.4857 
+      Locus 9: 0.0000 0.0143 0.0000 0.4857 0.0000 0.4143 0.0714 0.0143 
+      Locus 10: 0.0000 0.4444 0.0139 0.5417 0.0000 
+      Locus 11: 0.0000 0.0000 0.2571 0.0000 0.5857 0.1571 0.0000 0.0000 
+      Locus 12: 0.0122 0.0610 0.0854 0.1220 0.1463 0.0122 0.0000 0.2927 0.1098 0.0122 0.1463 0.0000 0.0000 
+      Locus 13: 0.0263 0.1974 0.3026 0.0000 0.0000 0.4737 0.0000 0.0000 
+      Locus 14: 0.2125 0.7250 0.0625 
+      Locus 15: 0.0000 0.0976 0.0000 0.0000 0.0000 0.0244 0.2073 0.2195 0.4512 
+      Locus 16: 0.0000 0.3049 0.2927 0.3659 0.0000 0.0366 
+      Locus 17: 0.4342 0.3421 0.1579 0.0000 0.0658 0.0000 
+      Locus 18: 0.1875 0.5750 0.0875 0.0000 0.0125 0.1375 
+      Locus 19: 0.0417 0.1250 0.0000 0.0000 0.0000 0.1528 0.6111 0.0694 
+      Locus 20: 0.0000 0.3421 0.4737 0.1842 0.0000 
+      Locus 21: 0.0405 0.6081 0.0270 0.1351 0.0000 0.0000 0.1892 
+      Locus 22: 0.0128 0.0000 0.0897 0.0000 0.2179 0.0000 0.2308 0.0000 0.0513 0.0256 0.3718 
+      mtDNA Locus: 0.5125 0.0000 0.0000 0.1125 0.0000 0.0250 0.1625 0.1250 0.0375 0.0250 
+    Population: PL
+      Locus 2: 0.0000 0.9921 0.0000 0.0000 0.0079 
+      Locus 3: 0.0000 0.0078 0.9219 0.0703 0.0000 
+      Locus 4: 0.0000 0.0317 0.9524 0.0159 
+      Locus 5: 0.2419 0.0806 0.5161 0.1613 
+      Locus 6: 0.0000 0.8254 0.1270 0.0397 0.0000 0.0079 
+      Locus 7: 0.0000 0.0000 0.8203 0.1797 
+      Locus 8: 0.0000 0.0000 0.0000 0.0794 0.0238 0.0317 0.2698 0.5952 
+      Locus 9: 0.0246 0.0000 0.0000 0.6557 0.0000 0.2131 0.0738 0.0328 
+      Locus 10: 0.0000 0.4583 0.0000 0.5417 0.0000 
+      Locus 11: 0.0000 0.0000 0.3167 0.0250 0.5167 0.1083 0.0333 0.0000 
+      Locus 12: 0.0079 0.0000 0.1270 0.1667 0.1984 0.0952 0.0000 0.1905 0.0317 0.0952 0.0714 0.0000 0.0159 
+      Locus 13: 0.0081 0.1452 0.1129 0.0161 0.0000 0.6452 0.0726 0.0000 
+      Locus 14: 0.3730 0.6270 0.0000 
+      Locus 15: 0.0000 0.0159 0.0000 0.0000 0.0000 0.0000 0.2381 0.2222 0.5238 
+      Locus 16: 0.0079 0.2302 0.1429 0.5635 0.0000 0.0556 
+      Locus 17: 0.4113 0.1613 0.1532 0.0000 0.2742 0.0000 
+      Locus 18: 0.1746 0.2222 0.2698 0.0159 0.0873 0.2302 
+      Locus 19: 0.0469 0.3281 0.0000 0.0000 0.0000 0.0469 0.4922 0.0859 
+      Locus 20: 0.0000 0.2742 0.5161 0.2016 0.0081 
+      Locus 21: 0.0781 0.7344 0.0000 0.0938 0.0391 0.0000 0.0547 
+      Locus 22: 0.0000 0.0000 0.0159 0.0000 0.3968 0.0000 0.1905 0.0000 0.1190 0.0238 0.2540 
+      mtDNA Locus: 0.5242 0.0484 0.0887 0.0242 0.0000 0.0000 0.1613 0.1048 0.0000 0.0484 
+    Population: BO
+      Locus 2: 0.0208 0.9375 0.0000 0.0000 0.0417 
+      Locus 3: 0.0000 0.0000 0.9583 0.0417 0.0000 
+      Locus 4: 0.0000 0.0208 0.8750 0.1042 
+      Locus 5: 0.1875 0.1042 0.5833 0.1250 
+      Locus 6: 0.0000 0.8333 0.1667 0.0000 0.0000 0.0000 
+      Locus 7: 0.0000 0.0000 0.6667 0.3333 
+      Locus 8: 0.0000 0.0000 0.0000 0.1458 0.0000 0.0000 0.3750 0.4792 
+      Locus 9: 0.0208 0.0000 0.0208 0.4792 0.0000 0.4583 0.0208 0.0000 
+      Locus 10: 0.0000 0.2083 0.0625 0.7292 0.0000 
+      Locus 11: 0.0000 0.0000 0.2500 0.0208 0.3750 0.3542 0.0000 0.0000 
+      Locus 12: 0.0000 0.0000 0.0435 0.0000 0.0435 0.0217 0.0000 0.1522 0.0217 0.2174 0.4130 0.0652 0.0217 
+      Locus 13: 0.0000 0.2292 0.1667 0.0000 0.0000 0.4583 0.1458 0.0000 
+      Locus 14: 0.3750 0.6250 0.0000 
+      Locus 15: 0.0000 0.0000 0.0000 0.0000 0.0000 0.0833 0.2708 0.2083 0.4375 
+      Locus 16: 0.1042 0.2083 0.3333 0.2292 0.0000 0.1250 
+      Locus 17: 0.3958 0.2708 0.1042 0.0000 0.2292 0.0000 
+      Locus 18: 0.2174 0.3913 0.1087 0.0000 0.0000 0.2826 
+      Locus 19: 0.0208 0.2917 0.0000 0.0000 0.0000 0.1042 0.4792 0.1042 
+      Locus 20: 0.0000 0.0000 0.6250 0.3750 0.0000 
+      Locus 21: 0.0217 0.8696 0.0000 0.0000 0.0000 0.0000 0.1087 
+      Locus 22: 0.0000 0.0000 0.0000 0.0000 0.3958 0.0000 0.2917 0.0000 0.0000 0.0208 0.2917 
+      mtDNA Locus: 0.1957 0.1087 0.0435 0.0217 0.0000 0.0000 0.4130 0.0652 0.0652 0.0870 
+    Population: IAA
+      Locus 2: 0.0000 0.9167 0.0000 0.0000 0.0833 
+      Locus 3: 0.0000 0.0000 0.9651 0.0349 0.0000 
+      Locus 4: 0.0000 0.0119 0.9286 0.0595 
+      Locus 5: 0.2073 0.0244 0.5610 0.2073 
+      Locus 6: 0.0000 0.9545 0.0455 0.0000 0.0000 0.0000 
+      Locus 7: 0.0000 0.0556 0.7444 0.2000 
+      Locus 8: 0.0000 0.0000 0.0000 0.0000 0.0114 0.0114 0.5227 0.4545 
+      Locus 9: 0.0000 0.0128 0.0513 0.4103 0.0000 0.3333 0.1410 0.0513 
+      Locus 10: 0.0000 0.5641 0.0000 0.4359 0.0000 
+      Locus 11: 0.0000 0.0000 0.1026 0.0256 0.7179 0.1410 0.0000 0.0128 
+      Locus 12: 0.0000 0.0111 0.0667 0.0000 0.1000 0.0000 0.0222 0.5222 0.0556 0.1222 0.0778 0.0111 0.0111 
+      Locus 13: 0.0000 0.0641 0.3590 0.0256 0.0000 0.4615 0.0897 0.0000 
+      Locus 14: 0.4535 0.5465 0.0000 
+      Locus 15: 0.0000 0.0111 0.0000 0.0000 0.0000 0.1667 0.1444 0.0667 0.6111 
+      Locus 16: 0.2111 0.3333 0.1111 0.2556 0.0000 0.0889 
+      Locus 17: 0.4024 0.3049 0.1829 0.0122 0.0976 0.0000 
+      Locus 18: 0.2556 0.2667 0.1000 0.0000 0.0889 0.2889 
+      Locus 19: 0.0000 0.0833 0.0952 0.0000 0.0000 0.2738 0.5119 0.0357 
+      Locus 20: 0.0000 0.2195 0.5244 0.2439 0.0122 
+      Locus 21: 0.0000 0.7442 0.0000 0.0581 0.0581 0.0000 0.1395 
+      Locus 22: 0.0000 0.0000 0.0000 0.0000 0.3605 0.0000 0.2326 0.0000 0.0000 0.0465 0.3605 
+      mtDNA Locus: 0.2444 0.0667 0.0000 0.0000 0.0111 0.0000 0.2111 0.0556 0.0333 0.3778 
+    Population: CO
+      Locus 2: 0.0417 0.9167 0.0000 0.0000 0.0417 
+      Locus 3: 0.0000 0.0000 0.8400 0.1600 0.0000 
+      Locus 4: 0.0000 0.0000 0.9600 0.0400 
+      Locus 5: 0.2500 0.0833 0.5417 0.1250 
+      Locus 6: 0.0000 0.8125 0.1875 0.0000 0.0000 0.0000 
+      Locus 7: 0.0000 0.0000 0.7200 0.2800 
+      Locus 8: 0.0000 0.0000 0.0000 0.0200 0.0600 0.0200 0.3800 0.5200 
+      Locus 9: 0.0435 0.0217 0.0000 0.5435 0.0000 0.2826 0.0000 0.1087 
+      Locus 10: 0.0000 0.5455 0.0000 0.4545 0.0000 
+      Locus 11: 0.0000 0.0000 0.2619 0.0476 0.4048 0.2857 0.0000 0.0000 
+      Locus 12: 0.0800 0.1400 0.0600 0.0000 0.1400 0.0000 0.0200 0.2000 0.1600 0.1000 0.1000 0.0000 0.0000 
+      Locus 13: 0.0000 0.1667 0.4167 0.0000 0.0208 0.3958 0.0000 0.0000 
+      Locus 14: 0.1800 0.5400 0.2800 
+      Locus 15: 0.0000 0.3200 0.1000 0.0200 0.0000 0.0600 0.1400 0.1200 0.2400 
+      Locus 16: 0.3400 0.1800 0.2600 0.1800 0.0000 0.0400 
+      Locus 17: 0.2708 0.5208 0.1458 0.0000 0.0625 0.0000 
+      Locus 18: 0.2500 0.5962 0.0577 0.0000 0.0192 0.0769 
+      Locus 19: 0.0192 0.0962 0.0000 0.0192 0.0000 0.1538 0.4808 0.2308 
+      Locus 20: 0.0000 0.1875 0.5000 0.2708 0.0417 
+      Locus 21: 0.0962 0.7308 0.0000 0.0192 0.0192 0.0000 0.1346 
+      Locus 22: 0.0000 0.0208 0.0000 0.0417 0.2708 0.0000 0.1875 0.0208 0.1875 0.0000 0.2708 
+      mtDNA Locus: 0.5000 0.0000 0.0000 0.1154 0.0000 0.0000 0.1346 0.0577 0.0385 0.1538 
+    Population: Captive
+      Locus 2: 0.0078 0.9375 0.0000 0.0000 0.0547 
+      Locus 3: 0.0000 0.0026 0.9072 0.0876 0.0026 
+      Locus 4: 0.0053 0.0289 0.9289 0.0368 
+      Locus 5: 0.2407 0.0635 0.5503 0.1455 
+      Locus 6: 0.0000 0.8179 0.1333 0.0385 0.0000 0.0103 
+      Locus 7: 0.0000 0.0126 0.7778 0.2096 
+      Locus 8: 0.0000 0.0000 0.0000 0.0471 0.0445 0.0183 0.3717 0.5183 
+      Locus 9: 0.0165 0.0082 0.0137 0.5330 0.0000 0.3187 0.0852 0.0247 
+      Locus 10: 0.0000 0.4558 0.0110 0.5331 0.0000 
+      Locus 11: 0.0000 0.0000 0.2430 0.0223 0.5419 0.1788 0.0112 0.0028 
+      Locus 12: 0.0152 0.0330 0.0863 0.0787 0.1396 0.0355 0.0076 0.2843 0.0685 0.0990 0.1320 0.0102 0.0102 
+      Locus 13: 0.0080 0.1524 0.2487 0.0107 0.0027 0.5160 0.0615 0.0000 
+      Locus 14: 0.3333 0.6179 0.0487 
+      Locus 15: 0.0000 0.0682 0.0126 0.0025 0.0000 0.0606 0.2020 0.1717 0.4823 
+      Locus 16: 0.1061 0.2601 0.2045 0.3636 0.0000 0.0657 
+      Locus 17: 0.3942 0.2884 0.1534 0.0026 0.1614 0.0000 
+      Locus 18: 0.2107 0.3731 0.1472 0.0051 0.0533 0.2107 
+      Locus 19: 0.0286 0.2005 0.0208 0.0026 0.0000 0.1380 0.5156 0.0938 
+      Locus 20: 0.0000 0.2302 0.5212 0.2381 0.0106 
+      Locus 21: 0.0492 0.7280 0.0052 0.0725 0.0285 0.0000 0.1166 
+      Locus 22: 0.0026 0.0026 0.0233 0.0052 0.3368 0.0000 0.2202 0.0026 0.0725 0.0259 0.3083 
+      mtDNA Locus: 0.4158 0.0434 0.0332 0.0485 0.0026 0.0051 0.1990 0.0867 0.0281 0.1378 
+    For any Supplements: 
+      Locus 2: 0.0078 0.9375 0.0000 0.0000 0.0547 
+      Locus 3: 0.0000 0.0026 0.9072 0.0876 0.0026 
+      Locus 4: 0.0053 0.0289 0.9289 0.0368 
+      Locus 5: 0.2407 0.0635 0.5503 0.1455 
+      Locus 6: 0.0000 0.8179 0.1333 0.0385 0.0000 0.0103 
+      Locus 7: 0.0000 0.0126 0.7778 0.2096 
+      Locus 8: 0.0000 0.0000 0.0000 0.0471 0.0445 0.0183 0.3717 0.5183 
+      Locus 9: 0.0165 0.0082 0.0137 0.5330 0.0000 0.3187 0.0852 0.0247 
+      Locus 10: 0.0000 0.4558 0.0110 0.5331 0.0000 
+      Locus 11: 0.0000 0.0000 0.2430 0.0223 0.5419 0.1788 0.0112 0.0028 
+      Locus 12: 0.0152 0.0330 0.0863 0.0787 0.1396 0.0355 0.0076 0.2843 0.0685 0.0990 0.1320 0.0102 0.0102 
+      Locus 13: 0.0080 0.1524 0.2487 0.0107 0.0027 0.5160 0.0615 0.0000 
+      Locus 14: 0.3333 0.6179 0.0487 
+      Locus 15: 0.0000 0.0682 0.0126 0.0025 0.0000 0.0606 0.2020 0.1717 0.4823 
+      Locus 16: 0.1061 0.2601 0.2045 0.3636 0.0000 0.0657 
+      Locus 17: 0.3942 0.2884 0.1534 0.0026 0.1614 0.0000 
+      Locus 18: 0.2107 0.3731 0.1472 0.0051 0.0533 0.2107 
+      Locus 19: 0.0286 0.2005 0.0208 0.0026 0.0000 0.1380 0.5156 0.0938 
+      Locus 20: 0.0000 0.2302 0.5212 0.2381 0.0106 
+      Locus 21: 0.0492 0.7280 0.0052 0.0725 0.0285 0.0000 0.1166 
+      Locus 22: 0.0026 0.0026 0.0233 0.0052 0.3368 0.0000 0.2202 0.0026 0.0725 0.0259 0.3083 
+      mtDNA Locus: 0.4158 0.0434 0.0332 0.0485 0.0026 0.0051 0.1990 0.0867 0.0281 0.1378 
+
+
+  Mutation modeled for 22 loci
+    with mutation rate = 0.0001
+
+
+  Genetic management for population: PW
+  Initial kinships set to: 0.15
+
+  Genetic management for population: PL
+  Initial kinships set to: 0.15
+
+  Genetic management for population: BO
+  Initial kinships set to: 0.15
+
+  Genetic management for population: IAA
+  Initial kinships set to: 0.15
+
+  Genetic management for population: CO
+  Initial kinships set to: 0.15
+
+  Genetic management for population: Captive
+  Initial kinships set to: 0.15

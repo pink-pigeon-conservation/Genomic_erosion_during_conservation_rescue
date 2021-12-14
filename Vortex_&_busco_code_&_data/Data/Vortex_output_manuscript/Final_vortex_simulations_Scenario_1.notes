@@ -1,0 +1,105 @@
+
+Scenario Settings Notes: I want to look at the impact of supplmentation from the captive if they have the same alleles and if they have different.
+
+Assume starting from 2010 enter populaiton estimates from then.
+
+Species Description Notes: See page 27 of manual. For now use the standard however it woudl be useful to work this out for PP and I think we have the data. This would be a good thing to ask Cock for help with
+
+The 50 refers to the fact that 50 percent of decline is due to lethal equivalents - how much inbreeding depression due to teh lethal equivalents as opposed to other mechanisms
+
+*** I believe we shoudl be able to calculate lethal equivalents for the pink pigeon with a bit more information, we need to plot inbreeding coefficient against traits for survival - fecundity, first year survival etc.
+
+
+
+If EV( variation due to environemtnal stochasticity) correlation is  is 1 it means that teh ev affecting reporudtcion adn survival are synchronised so that a good year for reporodcution is a good year for survival. 
+
+Pink pigeons breed all year and stay put therefore these things are likely to be highly correlated
+
+State Variables Notes: This allows you to make more complex models, this is slightly beyond me at the moment and I am not sure if they will be required.
+
+Dispersal Notes: I used the data from LC thesis to look at what birds and when were movI have tried setting youingest at 0 - they cant disperse at birth but from fledge
+
+
+I used the data from LC thesis to look at what birds and when were moving into populaitons this is a very rough estimate
+
+I got the data looking at the graphs in LC theseis woudl be more acurate with the data and even then it is not currentng into populaitons this is a very rough estimate
+
+Apart from to adn from IAA it seems dispersing ( from what I have read) does not pose more or less threat than normal living so I have set the survival at 100%
+
+NB dtaa for lower BRG likely to understimate actual dispersal as  limited data at time of her thesis as it had only been established recently
+
+Reproductive System Notes: I will use a lot of info from Mos thesis here
+
+long term monogamy measn they keep their breedng partner unless death
+
+
+Mo conlcuded sex ratio in IAA equal at birth but generally unequal thereafter
+
+Need ot chek max broods and max progeny
+
+Have represnted adult sex bias as bias at birth
+
+I have used a number of sources here overall I think it seems likely from CJ pink pigeon chapter and subsequent work that they can become reproductively active earlier than a year adn females burn out.
+
+Harder to ascertian was brood number - it seems according to CJ (Larger land birds of Mauritius) that they are capable of laying a hug number of eggs ( about 30 has been recorded)
+
+6 OCT
+
+After meeting Cock pointed out that using highest ever recorded was unlikely to give a representative distrubution so reduce number of broods to try and recereate real distribution
+
+Reproductive Rates Notes: Base off of Mikes PVA
+
+Captive jersey alone raised 39 birds to fledging in one year
+
+
+0 brood = emty clutch ie laid egg but didnt hatch or died quickly after hatching
+
+Mortality Notes: use data from MOs thesis he in turn got in from Nancy
+
+NB In order to model impact of inbrreding etc. I have said that young = egg therefore mortality includes eggs not hatchign ie infertile eggs. This is one of the reasons the number is so high, it is including infertile eggs then mortality.
+
+Mike PVA adult mortality 10-15 sd 2%
+
+Replaced mortality rates with mean and SD worked out form Nancy thesis (2001-2005)
+
+THe issue is that if I put the reproductiuve age at 0 then i can only specify mortality after age 0 as opposed ot 0-1 and after 1
+
+9_OCT
+Redce mortality because currently wanted to take in infertility but that is how inbreeding depression is manifested so essentially accounting for it twice so needed to reduce 1st year mortality from 95 -
+
+Catastrophe Notes: Cyclones cause 50% mortality when they occur (CJ larger land birds)
+
+according to PVA by Mike sever cyclones happen about once every 15 years  - because I am modelign 50 years - 6%
+
+Mate Monopolization Notes: got this form Mikes - still not clear on this paramter
+
+Initial Population Size Notes: Used LC thesis and number for this time point
+
+Carrying Capacity Notes: I am unsure of these but wanted to set it high enough to not be too much of a barrier.
+
+Reading CJ(larger landbirds of Mauritius)  he said that the carryign capacity of PW was about 75 but with supplementary feeding coudl be 100-1200. Since all popn fed i have increased to upper limit apart from IAA which I think has other constriants
+
+Harvest Notes: Birds were removed from the wild to supplement captive breeding.
+
+11 were removed from 1976 - 1981 
+
+12 were removed in 1989
+
+Supplementation Notes: For PL used 71 out of 107 becasue supplemtation figures start before model so adjusted accordinlgy - figures from manuscript
+
+what i want is a function that says :
+
+intriduce x individulas with x intervals fir x years then introduce x every 2 years
+
+According to Nancy PWhas never been supplemetned
+
+I tested whether it made much difference to supplemnt all over or all under 1 yr it didnt. I know preferntially they release young individuals but I know hisotirclly older ave been released so setled on a few older
+
+Worked out % surviving from LC table in manuscript
+
+Genetics Notes: Mutation rate used by Harrison et al in another bird species - also using microsatellites
+another paper quoted microsat mutation rate at 10-2, 10-6 so thsi number is straight down the middle
+
+you-chun li et al 10-2, 110-6
+
+include only additional loci in summary stats means it will only include the stats for the 22 neutral loci not th edefault infinite allele locus
